@@ -124,7 +124,7 @@
 
 <script>
 // Brevo form endpoint: paste the form's action URL (https://….sibforms.com/serve/…) between the quotes.
-const BREVO_FORM_URL = "https://c0200402.sibforms.com/serve/MUIFANusjtVy5KYXZS9HB4uEVPV0tiKohPIeoIOzb_apHxn3rcz0FH3f8oMvg8b48pSk3TQsayeIk4D8kX_MTl_EkKIfhZJs5CEoekrtAt4zy0YxkM738S4FZ2Zo3GTbRsO1KcKM-9hsJLCcTQLn7F7oMxUwx8h37KEekmm5PVcP5AB7C9YmGDNcXXTcWCEFHuQDi92dhgxjL7lLkQ";
+const BREVO_FORM_URL = "https://c0200402.sibforms.com/serve/MUIFANusjtVy5KYXZS9HB4uEVPV0tiKohPIeoIOzb_apHxn3rcz0FH3f8oMvg8b48pSk3TQsayeIk4D8kX_MTl_EkKIfhZJs5CEoekrtAt4zy0YxkM738S4FZ2Zo3GTbRsO1KcKM-9hsJLCcTQLn7F7oMxUwx8h37KEekmm5PVcP5AB7C9YmGDNcXXTcWCEFHuQDi92dhgxjL7lLkQ==";
 
 const form = document.getElementById('signup');
 const email = document.getElementById('email');
@@ -146,7 +146,14 @@ form.addEventListener('submit', async (e) => {
   error.hidden = true;
   submit.disabled = true;
   try {
-    await fetch(BREVO_FORM_URL, { method: 'POST', mode: 'no-cors', body: new FormData(form) });
+    const response = await fetch(BREVO_FORM_URL, { method: 'POST', body: new FormData(form) });
+    let result = {};
+    try { result = await response.json(); } catch (e) { /* non-JSON answer */ }
+    if (!response.ok || result.success === false) {
+      submit.disabled = false;
+      if (result.errors && result.errors.EMAIL) return showError('Please check your email address and try again.', email);
+      return showError('Something went wrong on our side. Please try again in a moment, or write to hello@noinest.com.');
+    }
     form.hidden = true;
     document.getElementById('thanks').hidden = false;
   } catch (err) {
