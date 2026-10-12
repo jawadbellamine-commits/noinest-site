@@ -1,0 +1,122 @@
+@font-face{font-family:"Fraunces";src:url("fonts/fraunces.woff2") format("woff2");font-weight:100 900;font-style:normal;font-display:swap}
+@font-face{font-family:"Fraunces";src:url("fonts/fraunces-italic.woff2") format("woff2");font-weight:100 900;font-style:italic;font-display:swap}
+@font-face{font-family:"Nunito Sans";src:url("fonts/nunito-sans.woff2") format("woff2");font-weight:200 1000;font-style:normal;font-display:swap}
+/* Layout: one calm reading column, like a letter from a family; a woven nest drawn in the hero is the single bold moment. */
+:root{
+  --bg:#FBF6EF;          /* warm cream paper */
+  --surface:#F3EADF;     /* soft nest straw */
+  --ink:#3D3A36;         /* charcoal (logo "Noï") */
+  --muted:#76706A;
+  --accent:#E8957A;      /* terracotta (logo "Nest") */
+  --accent-strong:#C9674D;
+  --on-accent:#FFF8F1;
+  --line:#E4D8CA;
+  --twig:#B98A62;
+  --display:"Fraunces", Georgia, "Times New Roman", serif;
+  --body:"Nunito Sans", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#221E1B; --surface:#2D2824; --ink:#F2EAE1; --muted:#B3A99F;
+    --accent:#EFA48A; --accent-strong:#E8957A; --on-accent:#2A1610;
+    --line:#40382F; --twig:#C79A72; color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#221E1B; --surface:#2D2824; --ink:#F2EAE1; --muted:#B3A99F;
+  --accent:#EFA48A; --accent-strong:#E8957A; --on-accent:#2A1610;
+  --line:#40382F; --twig:#C79A72; color-scheme:dark;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+body{
+  background:var(--bg); color:var(--ink);
+  font-family:var(--body); font-size:1.0625rem; line-height:1.65;
+  padding-inline:20px; padding-block:0;
+  -webkit-font-smoothing:antialiased;
+}
+.wrap{max-width:640px; margin-inline:auto}
+h1,h2{font-family:var(--display); font-weight:600; text-wrap:balance; line-height:1.15; margin:0}
+h1{font-size:clamp(2.1rem, 7vw, 3.1rem); letter-spacing:-0.01em}
+h2{font-size:clamp(1.55rem, 5vw, 2rem)}
+p{margin:0}
+em{font-family:var(--display); font-style:italic}
+
+/* Header */
+.top{display:flex; justify-content:space-between; align-items:center; padding-block:22px}
+.logo{font-family:var(--display); font-weight:600; font-size:1.55rem; letter-spacing:-0.01em; text-decoration:none; color:var(--ink)}
+.logo span{color:var(--accent)}
+.top a.link{font-weight:600; font-size:.95rem; color:var(--accent-strong); text-decoration:none}
+
+/* Hero */
+.hero{display:grid; gap:22px; padding-block:12px 56px; text-align:left}
+.nest{width:100%; max-width:340px; height:auto; margin-inline:auto; display:block}
+.signature{font-family:var(--display); font-style:italic; color:var(--accent-strong); font-size:1.1rem}
+.lede{color:var(--muted); max-width:34em}
+.soon{display:inline-flex; align-items:center; gap:10px; font-size:.82rem; font-weight:700; letter-spacing:.08em; text-transform:uppercase; color:var(--muted)}
+.soon::before{content:""; width:8px; height:8px; border-radius:50%; background:var(--accent)}
+.btn{
+  display:inline-block; justify-self:start; border:0; cursor:pointer;
+  background:var(--accent-strong); color:var(--on-accent);
+  font:700 1rem var(--body); padding:15px 26px; border-radius:999px; text-decoration:none;
+  transition:transform .15s ease, background .15s ease;
+}
+.btn:hover{transform:translateY(-1px)}
+.btn:focus-visible, input:focus-visible, a:focus-visible{outline:3px solid var(--accent); outline-offset:3px}
+
+/* Sections */
+section{padding-block:48px; border-top:1px solid var(--line)}
+.story{display:grid; gap:18px}
+.define{
+  background:var(--surface); border-radius:18px; padding:20px 22px;
+  font-family:var(--display); font-size:1.15rem; line-height:1.5;
+}
+.define strong{color:var(--accent-strong); font-weight:600}
+
+.beliefs{display:grid; gap:22px; margin-top:22px}
+.belief{display:grid; grid-template-columns:40px 1fr; gap:14px; align-items:start}
+.belief svg{width:40px; height:40px}
+.belief h3{font-family:var(--display); font-weight:600; font-size:1.2rem; margin:0 0 4px}
+.belief p{color:var(--muted)}
+
+.founder{display:grid; grid-template-columns:96px 1fr; gap:18px; align-items:center}
+.pic{margin:4px 0; border-radius:22px; overflow:hidden; background:var(--surface); max-width:100%}
+.pic img{display:block; width:100%; height:auto; aspect-ratio:3/2; object-fit:cover}
+.pic.tall img{aspect-ratio:4/5; object-position:50% 40%}
+.portrait{width:96px; height:96px; border-radius:50%; object-fit:cover; border:3px solid var(--surface)}
+.founder blockquote{margin:0; font-family:var(--display); font-size:1.2rem; line-height:1.45}
+.founder cite{display:block; margin-top:8px; font-style:normal; font-size:.9rem; color:var(--muted)}
+
+/* Sign-up */
+.join{background:var(--surface); border:0; border-radius:28px; padding:34px 24px; margin-block:48px; display:grid; gap:14px}
+.join p.note{color:var(--muted)}
+form{display:grid; gap:14px; margin-top:6px}
+label.field{display:grid; gap:6px; font-weight:600; font-size:.95rem}
+input[type=email]{
+  font:inherit; padding:14px 16px; border-radius:14px; border:1.5px solid var(--line);
+  background:var(--bg); color:var(--ink); width:100%;
+}
+.consent{display:grid; grid-template-columns:22px 1fr; gap:10px; font-size:.92rem; color:var(--muted); align-items:start}
+.consent input{width:20px; height:20px; margin:2px 0 0; accent-color:var(--accent-strong)}
+.error{color:var(--accent-strong); font-size:.9rem; font-weight:600}
+.thanks{font-family:var(--display); font-size:1.35rem; line-height:1.4}
+
+footer{padding-block:28px 40px; border-top:1px solid var(--line); font-size:.88rem; color:var(--muted); display:flex; flex-wrap:wrap; gap:6px 14px}
+footer .dot{opacity:.5}
+
+footer a{color:inherit; text-decoration:underline; text-decoration-color:var(--line); text-underline-offset:3px}
+footer a:hover{color:var(--ink)}
+.btn[disabled]{opacity:.6; cursor:wait}
+.thanks small{display:block; margin-top:8px; font-family:var(--body); font-size:.95rem; color:var(--muted)}
+.hp{position:absolute; left:-5000px; width:1px; height:1px; overflow:hidden}
+
+/* Privacy page */
+.legal{padding-block:12px 40px; display:grid; gap:14px}
+.legal h1{font-size:clamp(1.9rem,6vw,2.5rem)}
+.legal h2{font-size:1.3rem; margin-top:18px}
+.legal p,.legal li{color:var(--ink)}
+.legal ul{margin:0; padding-left:1.2em; display:grid; gap:6px}
+.legal .updated{color:var(--muted); font-size:.92rem}
+.legal a{color:var(--accent-strong)}
+.consent a,.join a{color:var(--accent-strong); text-underline-offset:3px}
